@@ -6,7 +6,7 @@
 
 **Repository:** https://github.com/OmKaw25/Beyondmarks
 
-**Release and downloadable files:** https://github.com/OmKaw25/Beyondmarks/releases/tag/v1.0.0-hackathon
+**Release and downloadable files:** https://github.com/OmKaw25/Beyondmarks/releases/tag/v1.0.1-hackathon
 
 ## Problem statement
 

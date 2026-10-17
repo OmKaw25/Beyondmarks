@@ -4,6 +4,8 @@ Beyond Marks helps learners and teachers understand the reasoning behind an answ
 
 **Intended users:** students learning introductory programming and teachers reviewing a class's reasoning. Teachers may add other subjects and written-answer quizzes; the full authored investigation and practice-variant flow currently covers variables, conditionals and loops.
 
+**Published release:** [video, Frontend Pack and submission ZIP](https://github.com/OmKaw25/Beyondmarks/releases/tag/v1.0.1-hackathon).
+
 **Submission:** [captioned Frontend Pack (PDF)](docs/submission/frontend-pack.pdf) | [HTML gallery](docs/submission/frontend-pack.html) | [project video](docs/submission/beyond-marks-demo.mp4) | [demo script](docs/demo-script.md). Public hosting has not been verified; use the local setup below.
 
 ## How the four riddles shaped the product
@@ -16,6 +18,8 @@ Beyond Marks helps learners and teachers understand the reasoning behind an answ
 | R4 - Check learning beyond the moment | Separate supported practice, transfer, independence and elapsed-time evidence. | Interactive support leads to changed-context transfer, independent work and reflection. Failed checks adapt support. Completed eligible investigations schedule fresh checks for 7 and 30 days later; server time gates access and submissions are immutable. |
 
 Teachers create subjects and lessons, publish quizzes, and inspect students' answers and reasoning. Gemini supplies formative feedback for class quizzes. Students can dispute it; teachers can append a reasoned correction. Original AI output remains available, and the corrected scores update course recommendations. This classroom extension keeps human review in the learning loop.
+
+See the [data model and storage explanation](docs/data-architecture.md) for why enrollment references grow with enrollment count rather than exponentially.
 
 ## Architecture and data boundaries
 

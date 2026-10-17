@@ -13,7 +13,7 @@ This section supersedes the historical runs below.
 - **Local smoke check:** PostgreSQL readiness returned ready; localhost:3000 returned HTTP 200 after the API restart.
 - **Publication checks:** configured secret values and common token patterns were scanned before staging. Environment files, build output and private temporary artifacts are ignored. Release checksums are in the artifact manifest.
 
-GitHub CI additionally runs backend tests against an ephemeral PostgreSQL service and frontend lint/build. Its remote result is recorded in the release handoff; the local evidence above does not assume a CI outcome.
+GitHub CI passed both backend and frontend jobs for the application release ([run 38993432713](https://github.com/OmKaw25/Beyondmarks/actions/runs/38993432713)). It uses an ephemeral PostgreSQL service, independently of the local Supabase tests. A subsequent packaging follow-up adds explicit route type generation and removes generated declarations from source control; its remote result is recorded in the release handoff.
 
 Public application hosting was not verified. Automatic approval review rejected starting the separate production frontend with only ?blocked by policy?; the unused tunnel was stopped. The working local app, repository and downloadable artifacts are the supported handoff. Organizer submission remains distinct from GitHub publication and requires an identified destination and team details.
 

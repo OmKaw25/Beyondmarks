@@ -15,13 +15,13 @@
     },
     {
       "file": "beyond-marks-demo.srt",
-      "bytes": 2629,
-      "sha256": "07ed67379c50ad8938b10998c8eeb945107cc0abbbd2b8b461edd6bbcee17637"
+      "bytes": 2534,
+      "sha256": "bba19d4b8ada5e1c4902108e116415b35a3ac9770e277acfae035d7d0bca6569"
     },
     {
       "file": "beyond-marks-demo-transcript.txt",
-      "bytes": 2226,
-      "sha256": "39b79089b8de48dfe652d042e81cce7d5cf848eea7ad49e8a24092f52b8300ad"
+      "bytes": 2191,
+      "sha256": "3f1ce3250b4661f2f6c708f4e246a686b1ac57470aa9e40703345040791f9b03"
     }
   ]
 }

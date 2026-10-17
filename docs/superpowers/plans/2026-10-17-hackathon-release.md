@@ -18,10 +18,12 @@
 - [x] Root integration/UI: real check list/answer flow, teacher review/dispute UI, learner/teacher navigation, route registration and additive migration application. Read contracts before integration; avoid shared edits.
 - [x] Verify: focused regression tests, full backend suite, typecheck/lint, production build in separate output directory, browser journey and new feature checks, desktop/mobile visual inspection. No fabricated retention outcomes or pilot findings.
 - [x] Submission artifacts: README riddle mapping and current limits, captioned PDF/HTML Frontend Pack, <=120-second actual-app video with explanation, release bundle/manifest. Video (109.05 seconds), PDF (16 pages), captions and manifest are complete. Portal/team details were requested asynchronously and remain unavailable.
-- [ ] GitHub: scan staged contents for secrets, commit intended files, push to origin, merge/release safely after confirming remote state; publish artifacts and verify links. Submit to provided portal if available and accessible. Report actual acceptance status.
+- [x] GitHub: scan staged contents for secrets, commit intended files, push to origin, merge/release safely after confirming remote state; publish artifacts and verify links. Submit to provided portal if available and accessible. Report actual acceptance status.
 
 ## Boundaries
 
 No destructive resets, no fabricated real student outcomes, no paid infrastructure commitments, no exposing credentials. Authored/generated examples are learning content; demonstration activity is explicitly separated from pilot activity. Public hosting may use available authenticated infrastructure or a clearly labeled temporary tunnel, not an invented deployment. A genuine classroom pilot and month-long outcome cannot be completed in one hour; implement the workflow and measurement capability and report that limitation.
 
 - [ ] Organizer delivery: awaiting exact submission destination and team details; no acceptance receipt claimed.
+
+GitHub publication completed: public repository and downloadable release artifacts; both remote CI jobs passed for the application commit. Organizer delivery remains pending, independently of publication.
