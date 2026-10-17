@@ -62,6 +62,8 @@ History is grouped by attempted topic, with only the latest non-synthetic attemp
 
 The learner dashboard's "Your learning history" lists only actual activities, excluding `is_synthetic` attempts. The follow-up history likewise excludes synthetic checks. Seed account status does not add a technical banner to the learner dashboard. Sample records remain stored for deliberate demonstrations and teacher review, where a concise "Sample activity" label identifies them. Remove the technical synthetic-record sentence and leaderboard commentary from ordinary learner screens. This revision supersedes the earlier instruction to place long synthetic provenance banners in the normal learning flow; it does not relabel sample results as real achievements.
 
+The teacher roster excludes sample accounts by default, including after Clear filters. Explicitly including samples changes the count label to "accounts (including samples)". Count enrolled active learners once each; investigation and quiz activity never contributes additional students. An empty normal roster prompts the teacher to share the enrollment code. Use the existing form, checkbox and card styles.
+
 ### Minimal neumorphic landing (Om's requested revision)
 
 Om's follow-up requests more visual presence without more sections: scale the landing headline to 72px on desktop, fluidly down to 36–44px on phones; use 18px desktop supporting copy and a 64px desktop emblem. Journey labels use 16px with 14px descriptions. Enlarge the auth panel to 440px with 40px desktop padding and a 36px heading (32px on phones). These values supersede the smaller initial landing/auth dimensions below. Preserve the restrained layout, black/rose-gold dark palette, and soft surfaces.

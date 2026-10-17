@@ -1,3 +1,12 @@
+# Roster counts and database lookup optimization — 2026-10-17
+
+- Read-only production-schema audit: teacher_demo had 29 distinct demo learners, zero non-demo active assigned learners, and no duplicate assignment pairs. Exam/failure events were not being inserted as users. Sample inclusion was the misleading count's cause.
+- Regression-first checks reproduced sample inclusion and unnecessary user-field loading before the fix. The focused roster/history/schema suite then passed **12 tests**. The existing enrollment/journey integration module passed **17 tests**. Repeated independent failures, restarts and quiz submission retained the same user/profile/enrollment counts; duplicate quiz submission was rejected.
+- The teacher roster browser test passed, including sample opt-in and Clear filters returning to normal mode. Four layouts were captured at desktop/mobile widths in light/dark themes; desktop light and mobile dark images were visually inspected. The current demo teacher's default roster showed **0 students**. Verification images are local in `.artifacts-private/roster-fix`; the published release pack remains its versioned snapshot.
+- TypeScript, ESLint and an isolated `.next-release` production build passed. Existing Starlette and SQLAlchemy deprecation warnings remain.
+- Migration **0007** was applied to the configured Supabase schema with bounded lock/statement timeouts. Both composite indexes were verified, and exact row counts matched before/after across all **34 application tables**. No account or evidence deletion was performed.
+- The deployed backend at `https://beyondmarks-pied.vercel.app` returned HTTP 200 for `/api/health` and `/api/ready` before the code push. This confirms backend/database connectivity, not a complete public frontend workflow. Production-scale load testing has not been performed.
+
 # Quiz recovery and invitation controls - 17 October 2026
 
 This section supersedes the historical runs below.

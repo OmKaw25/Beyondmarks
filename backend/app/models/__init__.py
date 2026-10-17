@@ -370,3 +370,6 @@ Index('ix_class_quizzes_teacher_page', ClassQuiz.teacher_id, ClassQuiz.created_a
 Index('ix_quiz_submissions_quiz_page', QuizSubmission.quiz_id, QuizSubmission.created_at.desc(), QuizSubmission.id)
 Index('ix_auth_sessions_expires_at', AuthSession.expires_at)
 Index('ix_quiz_submissions_learner_status', QuizSubmission.learner_id, QuizSubmission.status)
+Index('ix_attempts_learner_real_latest', Attempt.learner_id, Attempt.exercise_id,
+      Attempt.created_at.desc(), Attempt.id.desc(), postgresql_where=Attempt.is_synthetic == False)
+Index('ix_delayed_checks_learner_due', DelayedCheck.learner_id, DelayedCheck.due_at, DelayedCheck.id)

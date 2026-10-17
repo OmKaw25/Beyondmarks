@@ -42,3 +42,14 @@ def test_home_returns_only_latest_owned_real_attempt_per_exercise(integration_en
         assert 'DISTINCT ON' in history_queries[0]
         assert 'JOIN exercises' in history_queries[0] and 'JOIN concepts' in history_queries[0]
         db.rollback()
+
+
+def test_history_lookup_indexes_exist_in_migrated_database(integration_engine):
+    from sqlalchemy import inspect
+    inspector = inspect(integration_engine)
+    attempts = {index['name']: index for index in inspector.get_indexes('attempts')}
+    latest = attempts['ix_attempts_learner_real_latest']
+    assert latest['column_names'] == ['learner_id', 'exercise_id', 'created_at', 'id']
+    assert 'is_synthetic = false' in latest['dialect_options']['postgresql_where']
+    delayed = {index['name']: index for index in inspector.get_indexes('delayed_checks')}
+    assert delayed['ix_delayed_checks_learner_due']['column_names'] == ['learner_id', 'due_at', 'id']

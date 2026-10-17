@@ -248,7 +248,7 @@ def test_synthetic_retention_and_teacher_scope(live_client):
     assert j['is_synthetic'] and j['adaptation'] and j['stage']=='support'
     assert send(client,f"/api/retention/{failed['id']}/adapt")['id']==j['id']
     send(client,'/api/auth/login',{'username':'teacher_demo','password':'integration-password-123'})
-    assert {uid(n) for n in ['learner_a','learner_b','learner_c']} <= {u['id'] for u in client.get('/api/teacher/learners').json()['data']}
+    assert {uid(n) for n in ['learner_a','learner_b','learner_c']} <= {u['id'] for u in client.get('/api/teacher/learners?include_samples=true').json()['data']}
     response=client.get('/api/teacher/learners/'+uid('learner_a')+'/timeline')
     assert response.status_code==200 and response.json()['data']['events']
     events=client.get('/api/teacher/learners/'+uid('learner_c')+'/timeline').json()['data']['events']

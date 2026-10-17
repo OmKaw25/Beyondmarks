@@ -1,3 +1,13 @@
+# Student roster and database growth review — 2026-10-17
+
+Read-only inspection of the configured public schema confirmed that teacher_demo has 29 assignment rows for 29 distinct learner IDs. All 29 are already classified as demonstration accounts; none qualifies as an active non-demo learner. There are zero duplicate teacher/learner assignment pairs. The entire schema has 94 users, 64 learner profiles, 57 assignments, 45 investigations and 7 quiz submissions. The roster's API and browser both defaulted to including samples, causing demonstration/test accounts to be presented as the normal student count. Attempts do not insert users or enrollments: those writes occur during signup or explicit seeding/bootstrap.
+
+The existing schema already separates users, unique profiles, unique teacher/learner assignments, shared curriculum, quiz submissions and evidence. Foreign keys do not copy parent records. Quiz submissions and course-progress summaries already have pairwise uniqueness constraints. No evidence of exponential row multiplication was found. Learning evidence necessarily grows with actual activity and remains append-only.
+
+Confirmed scalability gaps: the older /teacher/learners endpoint reads the complete roster and aggregates all assigned attempts; roster queries load full user rows including unused password hashes; the latest-per-topic history query lacks a matching composite index; delayed-check ordering likewise has only separate learner and due-date indexes. Fix both roster entry points through one bounded, projected query using enrollment EXISTS, hide samples by default while retaining explicit sample access, and add targeted composite indexes. Preserve all existing rows and relationships. Regression checks must prove repeated starts, failures and quiz activity leave learner/enrollment counts unchanged, alongside uniqueness, pagination and sample filtering.
+
+The new tests first reproduced sample inclusion and unnecessary full-user projections. During verification, TypeScript also found that the Learner client type omitted data_origin, although both roster APIs already return it. Add the existing response field to the client contract so either provenance flag can identify sample cards; no API payload change is needed.
+
 # Final review findings — 2026-10-17
 
 The independent review found four issues. The following causes were confirmed in source before changes.

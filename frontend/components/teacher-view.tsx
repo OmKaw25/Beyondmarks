@@ -25,19 +25,19 @@ function TeacherRoster({search,includeSamples,offset,onPage}:{search:string;incl
   if(resource.error)return <ErrorPanel error={resource.error} retry={resource.reload}/>;
   const data=resource.data;if(!data)return null;
   return <section aria-label="Your students" className="section-space">
-    <p className="small muted" role="status">{data.page.total} student{data.page.total===1?'':'s'}{search?' matching your search':''}</p>
-    {data.learners.length?<div className="three-grid">{data.learners.map(l=><article className="card" key={l.id}><div className="avatar">{l.username[0].toUpperCase()}</div><h2>{l.username.replaceAll('_',' ')}</h2><p>{l.investigations} investigation{l.investigations!==1?'s':''}</p>{l.is_synthetic&&<SyntheticBadge/>}<Link className="button secondary full" href={`/teacher/learners/${l.id}`}>Review evidence →</Link></article>)}</div>:<Empty title={search||!includeSamples?'No students match these filters':offset?'No students on this page':'No learners assigned yet'}>{search||!includeSamples?'Try another username or include sample accounts.':'Share your student enrollment code below. Students who sign up with it will appear here.'}</Empty>}
+    <p className="small muted" role="status">{data.page.total} {includeSamples?'account':'student'}{data.page.total===1?'':'s'}{includeSamples?' (including samples)':''}{search?' matching your search':''}</p>
+    {data.learners.length?<div className="three-grid">{data.learners.map(l=><article className="card" key={l.id}><div className="avatar">{l.username[0].toUpperCase()}</div><h2>{l.username.replaceAll('_',' ')}</h2><p>{l.investigations} investigation{l.investigations!==1?'s':''}</p>{(l.is_synthetic||l.data_origin==='demo')&&<SyntheticBadge/>}<Link className="button secondary full" href={`/teacher/learners/${l.id}`}>Review evidence →</Link></article>)}</div>:<Empty title={search?'No students match these filters':offset?'No students on this page':'No learners assigned yet'}>{search?'Try another username.':'Share your student enrollment code below. Students who sign up with it will appear here.'}</Empty>}
     {(offset>0||data.page.has_more)&&<div className="actions section-space"><button className="button secondary" disabled={offset===0} onClick={()=>onPage(Math.max(0,offset-data.page.limit))}>Previous students</button><span className="small muted">{data.learners.length?`${offset+1}-${offset+data.learners.length} of ${data.page.total}`:'End of the list'}</span><button className="button secondary" disabled={!data.page.has_more} onClick={()=>onPage(data.page.next_offset!)}>Next students</button></div>}
   </section>;
 }
 
 export function TeacherList(){
-  const [search,setSearch]=useState('');const [includeSamples,setIncludeSamples]=useState(true);const [offset,setOffset]=useState(0);
+  const [search,setSearch]=useState('');const [includeSamples,setIncludeSamples]=useState(false);const [offset,setOffset]=useState(0);
   return <AppShell><PageHeading eyebrow="TEACHER / MENTOR" title="The thinking behind the answers.">Review evidence, uncertainty, and the learner&apos;s perspective. Every learner has a different story.</PageHeading>
     <form role="search" aria-label="Student roster search" className="card form-stack" onSubmit={event=>{event.preventDefault();const values=new FormData(event.currentTarget);setSearch(String(values.get('student')||'').trim());setIncludeSamples(values.get('samples')==='on');setOffset(0);}}>
       <label>Find a student<input name="student" type="search" maxLength={32} placeholder="Search by username"/></label>
-      <label className="choice"><input name="samples" type="checkbox" defaultChecked/>Include sample accounts</label>
-      <div className="actions"><button className="button secondary">Search students</button><button className="text-button" type="reset" onClick={()=>{setSearch('');setIncludeSamples(true);setOffset(0);}}>Clear filters</button></div>
+      <label className="choice"><input name="samples" type="checkbox"/>Include sample accounts</label>
+      <div className="actions"><button className="button secondary">Search students</button><button className="text-button" type="reset" onClick={()=>{setSearch('');setIncludeSamples(false);setOffset(0);}}>Clear filters</button></div>
     </form>
     <TeacherRoster key={`${search}/${includeSamples}/${offset}`} search={search} includeSamples={includeSamples} offset={offset} onPage={setOffset}/><TeacherCodePanel/>
   </AppShell>;

@@ -10,6 +10,7 @@ from app.errors import fail
 from app.security.dependencies import require_teacher
 from app.services.journey_service import rows, record
 from app.services.classroom import page_info
+from app.services.teacher_roster import roster_page
 from app.services.teacher_invites import rotate_code
 from app.schemas import RequestModel
 
@@ -36,13 +37,12 @@ def invitation(teacher: m.User = Depends(require_teacher), db: Session = Depends
 
 
 @router.get('/learners')
-def learners(teacher: m.User = Depends(require_teacher), db: Session = Depends(get_db)):
-    counts=select(m.Attempt.learner_id,func.count().label('total')).join(m.TeacherAssignment,m.TeacherAssignment.learner_id==m.Attempt.learner_id).where(
-        m.TeacherAssignment.teacher_id==teacher.id).group_by(m.Attempt.learner_id).subquery()
-    assigned=db.execute(select(m.User,func.coalesce(counts.c.total,0)).join(m.TeacherAssignment,m.TeacherAssignment.learner_id==m.User.id)
-        .outerjoin(counts,counts.c.learner_id==m.User.id).where(m.TeacherAssignment.teacher_id==teacher.id).order_by(m.User.username))
-    return {'data':[dict(id=user.id,username=user.username,is_synthetic=user.is_synthetic,data_origin=user.data_origin,
-                         investigations=total) for user,total in assigned]}
+def learners(search: str = Query('', max_length=32), limit: int = Query(50, ge=1, le=50),
+             offset: int = Query(0, ge=0), include_samples: bool = False,
+             teacher: m.User = Depends(require_teacher), db: Session = Depends(get_db)):
+    result = roster_page(db, teacher.id, search=search, limit=limit, offset=offset, include_samples=include_samples)
+    # Preserve the legacy list envelope while exposing pagination metadata.
+    return {'data': result['learners'], 'page': result['page']}
 
 
 EVENT_GROUPS=[(m.LearnerEvidence,'Reasoning evidence'),(m.HypothesisAssessment,'Interpretation'),
@@ -53,21 +53,9 @@ EVENT_GROUPS=[(m.LearnerEvidence,'Reasoning evidence'),(m.HypothesisAssessment,'
 
 @router.get('/roster')
 def roster(search: str = Query('', max_length=32), limit: int = Query(12, ge=1, le=50),
-           offset: int = Query(0, ge=0), include_samples: bool = True,
+           offset: int = Query(0, ge=0), include_samples: bool = False,
            teacher: m.User = Depends(require_teacher), db: Session = Depends(get_db)):
-    assigned = select(m.User).join(m.TeacherAssignment, m.TeacherAssignment.learner_id == m.User.id).where(
-        m.TeacherAssignment.teacher_id == teacher.id, m.User.role == 'learner', m.User.active == True)
-    if search.strip():
-        assigned = assigned.where(m.User.username.icontains(search.strip(), autoescape=True))
-    if not include_samples:
-        assigned = assigned.where(m.User.is_synthetic == False, m.User.data_origin != 'demo')
-    total = db.scalar(select(func.count()).select_from(assigned.subquery()))
-    users = list(db.scalars(assigned.order_by(m.User.username, m.User.id).limit(limit).offset(offset)))
-    counts = dict(db.execute(select(m.Attempt.learner_id, func.count()).where(
-        m.Attempt.learner_id.in_([user.id for user in users])).group_by(m.Attempt.learner_id)).all()) if users else {}
-    return {'data': {'learners': [dict(id=user.id, username=user.username, is_synthetic=user.is_synthetic,
-        data_origin=user.data_origin, investigations=counts.get(user.id, 0)) for user in users],
-        'page': page_info(total, limit, offset)}}
+    return {'data': roster_page(db, teacher.id, search=search, limit=limit, offset=offset, include_samples=include_samples)}
 
 
 @router.get('/learners/{learner_id}')

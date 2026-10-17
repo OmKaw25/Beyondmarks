@@ -22,6 +22,6 @@ export type Journey = {
 };
 export type Home = { username: string; is_synthetic: boolean; exercises: { id: string; title: string; concept: string; score: number | null }[]; attempts: { id: string; exercise_id: string; concept: string; title: string; stage: string; status: string; is_synthetic: boolean; next_url: string; created_at: string }[] };
 export type Retention = { id: string; concept: string; outcome: string; check_date: string; is_synthetic: boolean; explanation: string; adaptation_required: boolean; adaptation_attempt_id: string | null };
-export type Learner = { id: string; username: string; is_synthetic: boolean; investigations: number };
+export type Learner = { id: string; username: string; is_synthetic: boolean; data_origin: string; investigations: number };
 export type EvidenceEvent = { id: string; kind: string; created_at: string; is_synthetic: boolean; investigation: string; details: Record<string, unknown> };
 export type Timeline = { id: string; username: string; is_synthetic: boolean; events: EvidenceEvent[]; retention: Retention[] };
