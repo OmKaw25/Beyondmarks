@@ -1,6 +1,6 @@
 # Current release status
 
-The full application is connected to Supabase. Core investigations, fresh retries, classrooms, AI feedback with audited teacher review, learner agency, real delayed checks and isolated pilot provisioning are implemented. Full release verification: 79 backend tests, 12 browser scenarios, TypeScript, ESLint and production build passed. See [release verification](verification.md) and [current README](../README.md). The original execution log below is historical.
+The Supabase-connected application now includes direct teacher assessment during AI outages, partial feedback progress, tab-scoped learner draft recovery and searchable, paged teacher rosters. Core investigations, fresh retries, classrooms, AI feedback with audited review, learner agency, real delayed checks and isolated pilot provisioning remain implemented. See [release verification](verification.md) and [current README](../README.md) for test evidence and limits. The original execution log below is historical.
 
 # Execution ledger — workflow.md
 

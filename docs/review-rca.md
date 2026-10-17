@@ -23,3 +23,15 @@ The independent review identified three evidence gaps. Delayed checks projected 
 The isolated production build directory was absent from ESLint ignores, so a subsequent lint traversed generated bundles and reported generated-code violations. Add `.next-release/**` alongside `.next/**`; source rules remain unchanged. A frontend feedback limit of 3000 also exceeded the server limit of 2000; the form now matches the server contract.
 
 Release packaging validation found caption/transcript checksum mismatches after Git normalized text line endings. Recompute hashes from the final checkout and verify both remote downloads and ZIP members. The PDF/MP4 are explicitly binary in `.gitattributes` and retain exact bytes. Next.js regenerates `next-env.d.ts` with different paths for development and release output, so it is now ignored/untracked as the installed Next.js guide recommends; typecheck first runs `next typegen`.
+
+## Classroom reliability extension
+
+Teacher review previously required an AI-graded submission, and effective feedback returned early when AI output was missing. This prevented teachers from assessing already saved student responses during an outage. The server now permits assigned teachers to append assessments to saved responses, combines only assessed questions, and preserves teacher overrides if AI completes later. Unassessed questions are not counted as zero. Regression tests cover ownership, partial/full assessment, and a teacher assessment committed while an AI request is in flight.
+
+Independent review found that classroom quiz cards still used the raw AI status after a complete teacher assessment. The classroom projection now includes assessment progress from a batched review query, and cards distinguish saved answers, partial feedback, and ready feedback. Both backend projection assertions and browser presentation fixtures cover these states.
+
+Final inspection found that the assessment projection reused `total`, overwriting the query's quiz count with the response count. The regression reproduced two quizzes reported for a one-quiz, two-question submission. Give the response count its own variable and retain the database count for pagination.
+
+Journey inputs lived only in uncontrolled form elements, so a refresh discarded unfinished reasoning. A bounded, tab-scoped draft store now uses the authorized attempt, stage and task identifiers. New retry tasks have distinct keys; successful submission and sign-out clear the appropriate drafts. Storage failures do not block learning. Browser tests cover refresh, request failure, retry isolation and unavailable storage.
+
+The teacher dashboard loaded an entire assigned roster. Its new endpoint filters and pages in PostgreSQL before counting attempts for visible students; the existing array endpoint remains compatible. Search escapes SQL wildcard characters and preserves teacher assignment scope. The UI reuses existing design tokens and offers an explicit sample-account filter. API and browser regressions cover pagination, search, role checks and empty results.

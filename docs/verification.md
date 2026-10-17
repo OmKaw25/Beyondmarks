@@ -1,3 +1,19 @@
+# Classroom reliability verification - 17 October 2026
+
+This section supersedes the historical runs below.
+
+- **Backend:** full local PostgreSQL suite: 84 passed in 406.57 seconds. Three existing dependency deprecation warnings remain. After the final overview pagination refinement, all three focused manual-assessment tests passed in 18.44 seconds, including the previously failing pagination regression. The release CI reruns the full suite against the final source.
+- **Browser:** all 18 scenarios passed in one 1.3-minute run. These include actual local frontend/API/Supabase workflows, live Gemini quiz feedback, refresh-safe journey drafts, retry isolation, sign-out cleanup, and searchable teacher rosters. Two new manual-assessment UI scenarios use explicit API fixtures; real PostgreSQL tests separately verify persistence, authorization, partial assessment and a late AI response.
+- **Frontend:** TypeScript, ESLint and the isolated production build passed for all 13 route patterns after the final UI changes.
+- **Review:** independent review found a quiz-card readiness label issue, fixed with backend projections and browser fixtures. Final inspection also caught a pagination count overwritten by a response count; a failing regression reproduced it before correction. Details are in review-rca.md.
+- **Data:** no migration or evidence deletion was needed. Sixteen additional automation accounts were identified by exact test naming patterns and verified test passwords, then marked as demonstration activity along with their attempts and delayed checks. Real classroom outcomes remain unmeasured.
+- **Artifacts:** updated 17-page Frontend Pack uses actual application captures, including teacher roster views at 390px/1440px in both themes. Selected PDF pages were visually inspected. The existing 109.05-second narrated/captioned core-workflow video is retained; it does not demonstrate every new reliability feature.
+- **Scope:** drafts protect unfinished journey forms within the current tab for up to 24 hours; they are not server backups. Teacher assessment is available during AI outages without treating unanswered assessments as zero. The paged roster endpoint supplements the compatible legacy array endpoint; no production load claim is made.
+
+Public hosting remains unverified. Organizer delivery still needs the exact destination and team identity. Published artifacts and local setup are the supported handoff.
+
+## Previous release verification
+
 # Hackathon release verification - 17 October 2026
 
 This section supersedes the historical runs below.

@@ -120,6 +120,18 @@
     ]
   },
   {
+    "section": "Teacher roster",
+    "title": "Find the student who needs your attention",
+    "screenshot": "docs/screenshots/24-teacher-roster-1440-light.png",
+    "caption": "Teachers can search their own students by username, hide sample accounts and navigate bounded roster pages. Search does not expose students from another class. Enrollment guidance points directly to the reusable class code.",
+    "crop": [
+      260,
+      210,
+      1405,
+      1120
+    ]
+  },
+  {
     "section": "Classroom extension",
     "title": "Create learning beyond the initial curriculum",
     "screenshot": "docs/screenshots/18-class-quiz-1440-light.png",

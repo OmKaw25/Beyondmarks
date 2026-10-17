@@ -37,6 +37,8 @@ SCREENS=[
   'The adaptation view preserves earlier and revised interpretations and directs the learner to changed support. Historical seeded examples are synthetic demonstrations; genuine delayed failures use separately persisted observations.',(260,670,1405,1560)),
  ('Teacher workspace','Review a learner’s reasoning history','09-teacher-evidence-1440-light.png',
   'Only an assigned teacher can inspect the learner’s evidence. The timeline preserves earlier reasoning and interpretations; pagination loads bounded pages across evidence types.',(260,250,1405,930)),
+ ('Teacher roster','Find the student who needs your attention','24-teacher-roster-1440-light.png',
+  'Teachers can search their own students by username, hide sample accounts and navigate bounded roster pages. Search does not expose students from another class. Enrollment guidance points directly to the reusable class code.',(260,210,1405,1120)),
  ('Classroom extension','Create learning beyond the initial curriculum','18-class-quiz-1440-light.png',
   'Teachers can add subjects and lessons, then publish quizzes with answer keys and reasoning guidance. Students see only published quizzes in their assigned class and submit answers with explanations.',(260,350,1405,1250)),
  ('Human review of AI','Correct feedback without erasing its origin','23-teacher-feedback-review-1440-light.png',
@@ -101,7 +103,7 @@ for number,(kicker,title,filename,caption,crop) in enumerate(SCREENS,2):
  c.showPage()
 
 base(len(SCREENS)+2,'Implementation and evidence','What this demonstration establishes')
-sections=[('Implemented','Authored diagnosis, distinct probes, learner perspective and agency; interactive support with fresh practice; real 7/30-day scheduling and due-time enforcement; teacher-created lessons/quizzes; audited AI feedback corrections; schema-isolated pilot provisioning.'),
+sections=[('Implemented','Teacher assessment during AI outages, tab-scoped draft recovery, searchable student rosters; authored diagnosis, distinct probes, learner perspective and agency; interactive support with fresh practice; real 7/30-day scheduling and due-time enforcement; teacher-created lessons/quizzes; audited AI feedback corrections; schema-isolated pilot provisioning.'),
  ('Evidence boundary','All shown accounts are demonstrations or automation fixtures. The scheduled dates show actual persisted future appointments. There are no fabricated elapsed-time outcomes and no completed longitudinal classroom pilot.'),
  ('Next validation','Educator review of content and rules, consented classroom participation, actual delayed observations and measured false interpretations. Template difficulty, learning efficacy and production load remain unvalidated.'),
  ('Review artifacts','Repository README: setup, upgrade/backfill instructions, risk limits and riddle mapping. Companion video: beyond-marks-demo.mp4. Public hosting has not been verified; the supported review path is local setup and downloadable artifacts.')]

@@ -1,7 +1,7 @@
 {
   "project": "Beyond Marks",
   "video_duration_seconds": 109.05,
-  "frontend_pack_pages": 16,
+  "frontend_pack_pages": 17,
   "artifacts": [
     {
       "file": "beyond-marks-demo.mp4",
@@ -10,8 +10,8 @@
     },
     {
       "file": "frontend-pack.pdf",
-      "bytes": 2306616,
-      "sha256": "39f07874107ba22122a1f6dcba6017105e4f94abc7e38174ed78b15183338310"
+      "bytes": 2510926,
+      "sha256": "3eeb2c43ce3035bb17f49ee299c00a0b5241c56be069e22ee2bf03264c32bb34"
     },
     {
       "file": "beyond-marks-demo.srt",

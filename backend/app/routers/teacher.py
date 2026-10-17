@@ -36,6 +36,25 @@ EVENT_GROUPS=[(m.LearnerEvidence,'Reasoning evidence'),(m.HypothesisAssessment,'
     (m.IndependentAttempt,'Independent check'),(m.AdaptationEvent,'Adaptation')]
 
 
+@router.get('/roster')
+def roster(search: str = Query('', max_length=32), limit: int = Query(12, ge=1, le=50),
+           offset: int = Query(0, ge=0), include_samples: bool = True,
+           teacher: m.User = Depends(require_teacher), db: Session = Depends(get_db)):
+    assigned = select(m.User).join(m.TeacherAssignment, m.TeacherAssignment.learner_id == m.User.id).where(
+        m.TeacherAssignment.teacher_id == teacher.id, m.User.role == 'learner', m.User.active == True)
+    if search.strip():
+        assigned = assigned.where(m.User.username.icontains(search.strip(), autoescape=True))
+    if not include_samples:
+        assigned = assigned.where(m.User.is_synthetic == False, m.User.data_origin != 'demo')
+    total = db.scalar(select(func.count()).select_from(assigned.subquery()))
+    users = list(db.scalars(assigned.order_by(m.User.username, m.User.id).limit(limit).offset(offset)))
+    counts = dict(db.execute(select(m.Attempt.learner_id, func.count()).where(
+        m.Attempt.learner_id.in_([user.id for user in users])).group_by(m.Attempt.learner_id)).all()) if users else {}
+    return {'data': {'learners': [dict(id=user.id, username=user.username, is_synthetic=user.is_synthetic,
+        data_origin=user.data_origin, investigations=counts.get(user.id, 0)) for user in users],
+        'page': page_info(total, limit, offset)}}
+
+
 @router.get('/learners/{learner_id}')
 @router.get('/learners/{learner_id}/timeline')
 def timeline(learner_id: UUID, event_limit:int=Query(50,ge=1,le=100),event_offset:int=Query(0,ge=0),

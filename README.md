@@ -4,7 +4,7 @@ Beyond Marks helps learners and teachers understand the reasoning behind an answ
 
 **Intended users:** students learning introductory programming and teachers reviewing a class's reasoning. Teachers may add other subjects and written-answer quizzes; the full authored investigation and practice-variant flow currently covers variables, conditionals and loops.
 
-**Published release:** [video, Frontend Pack and submission ZIP](https://github.com/OmKaw25/Beyondmarks/releases/tag/v1.0.1-hackathon).
+**Published release:** [video, Frontend Pack and submission ZIP](https://github.com/OmKaw25/Beyondmarks/releases/tag/v1.1.0-hackathon).
 
 **Submission:** [captioned Frontend Pack (PDF)](docs/submission/frontend-pack.pdf) | [HTML gallery](docs/submission/frontend-pack.html) | [project video](docs/submission/beyond-marks-demo.mp4) | [demo script](docs/demo-script.md). Public hosting has not been verified; use the local setup below.
 
@@ -17,7 +17,7 @@ Beyond Marks helps learners and teachers understand the reasoning behind an answ
 | R3 - Ask a useful next question | Prefer a small question that separates plausible explanations. | Distinct output, reading and unhurried probes have different prediction patterns. Selection balances hypothesis separation against interaction burden and exposes its rationale. |
 | R4 - Check learning beyond the moment | Separate supported practice, transfer, independence and elapsed-time evidence. | Interactive support leads to changed-context transfer, independent work and reflection. Failed checks adapt support. Completed eligible investigations schedule fresh checks for 7 and 30 days later; server time gates access and submissions are immutable. |
 
-Teachers create subjects and lessons, publish quizzes, and inspect students' answers and reasoning. Gemini supplies formative feedback for class quizzes. Students can dispute it; teachers can append a reasoned correction. Original AI output remains available, and the corrected scores update course recommendations. This classroom extension keeps human review in the learning loop.
+Teachers create subjects and lessons, publish quizzes, and inspect students' answers and reasoning. Gemini supplies formative feedback for class quizzes. Students can dispute it; teachers can append a reasoned correction. Teachers can also assess saved answers immediately when AI feedback is unavailable. Partial assessments count only reviewed questions; later AI results preserve teacher corrections. Original AI output remains available, and the corrected scores update course recommendations. This classroom extension keeps human review in the learning loop.
 
 See the [data model and storage explanation](docs/data-architecture.md) for why enrollment references grow with enrollment count rather than exponentially.
 
@@ -32,8 +32,10 @@ Browser -> Next.js /api proxy -> FastAPI -> PostgreSQL / Supabase
 - **Frontend:** Next.js, React and TypeScript; responsive light/dark layouts.
 - **Backend:** FastAPI, SQLAlchemy, bcrypt passwords, HttpOnly JWT cookies and revocable database sessions. Learner ownership and teacher assignments scope protected operations.
 - **Storage:** additive migrations through `0006`; evidence snapshots, real delayed checks, immutable submissions, append-only reviews and disputes, and materialized course-progress summaries. RLS restricts direct Supabase client access; the trusted backend applies application authorization.
-- **Performance:** classroom queries batch related records; quiz lists, submission lists and teacher evidence timelines are paginated. Recommendations read course summaries rather than rescan full submission history. Expired sessions have an explicit maintenance command.
+- **Performance:** the teacher roster supports bounded pages, username search and sample-account filtering; classroom queries batch related records; quiz lists, submission lists and teacher evidence timelines are paginated. Recommendations read course summaries rather than rescan full submission history. Expired sessions have an explicit maintenance command.
 - **Provenance:** authored content, synthetic demonstration activity and pilot provisioning are separate. `APP_DATABASE_SCHEMA` isolates a named PostgreSQL schema. Accounts default to `data_origin=unverified`; demo and pilot provisioning set explicit origins. An unmarked account is not evidence of a real participant.
+
+Unsubmitted investigation, diagnosis, follow-up, support and verification responses can recover after refresh or a failed request in the same browser tab. Drafts are keyed to the attempt and task, limited to 20 entries and 24 hours, and cleared after successful submission or sign-out. They are not submitted evidence or a server backup; unavailable browser storage does not block learning.
 
 No learner-provided code is executed. Programming practice uses authored, validated templates. Correct-answer keys are withheld from unanswered learner tasks. Draft quiz edits are allowed; published questions and submitted answers cannot be silently replaced.
 

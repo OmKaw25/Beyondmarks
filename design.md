@@ -121,3 +121,9 @@ Show only assigned learners. Prioritize submitted reasoning, uncertainty, learne
 ## Acceptance review
 
 Review landing, signup/login, the complete learner path, and teacher evidence at 390px and 1440px widths in both themes. Check text contrast, keyboard order, visible focus, empty/error states, loading behavior, and synthetic labels. Use `agents.md` for any proposed visual values absent from this specification.
+
+## Classroom reliability interactions
+
+- Reuse the existing card, form, button, grid, spacing and theme tokens for roster search and pagination; no new visual tokens are introduced.
+- Show feedback readiness separately from AI processing status. Pending, partial and complete teacher assessments have distinct labels; unassessed questions do not display invented scores.
+- Journey forms restore only the draft belonging to the current attempt, stage and task. A fresh retry starts blank. Draft recovery must not imply server submission.

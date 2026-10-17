@@ -6,15 +6,21 @@ from app.errors import fail
 
 
 def effective_evaluation(db, submission, reviews=None):
-    if submission.evaluation_json is None:
-        return None
-    result = deepcopy(submission.evaluation_json)
     if reviews is None:
         reviews = list(db.scalars(select(m.TeacherReview).where(m.TeacherReview.submission_id == submission.id)))
     latest = {}
     for review in sorted(reviews, key=lambda r: (r.created_at, r.id)):
         if review.submission_id == submission.id:
             latest[review.question_id] = review
+    if submission.evaluation_json is None and not latest:
+        return None
+    result = deepcopy(submission.evaluation_json) if submission.evaluation_json is not None else {'source': 'teacher', 'questions': []}
+    existing = {q['question_id'] for q in result.get('questions', [])}
+    # Only assessed responses appear: missing feedback is never a zero score.
+    for response in submission.responses_json:
+        question_id = response['question_id']
+        if question_id in latest and question_id not in existing:
+            result['questions'].append({'question_id': question_id})
     for question in result.get('questions', []):
         review = latest.get(question['question_id'])
         if review:
@@ -39,13 +45,13 @@ def submission_for(db, user, submission_id, lock=False):
     return submission
 
 
-def question_for(db, submission, question_id):
+def question_for(db, submission, question_id, require_feedback=True):
     question = db.get(m.QuizQuestion, question_id)
-    if not question or question.quiz_id != submission.quiz_id:
+    if not question or question.quiz_id != submission.quiz_id or question_id not in {r['question_id'] for r in submission.responses_json}:
         fail(422, 'INVALID_QUESTION', 'Choose a question from this submission.')
-    if submission.status != 'graded' or not submission.evaluation_json:
-        fail(409, 'FEEDBACK_PENDING', 'Feedback must be available before it can be reviewed or disputed.')
-    if question_id not in {q['question_id'] for q in submission.evaluation_json.get('questions', [])}:
+    evaluation = effective_evaluation(db, submission) if require_feedback else None
+    if require_feedback and question_id not in {q['question_id'] for q in (evaluation or {}).get('questions', [])
+                                                if submission.status == 'graded' or q.get('reviewed')}:
         fail(409, 'FEEDBACK_PENDING', 'Feedback for this question is not available.')
     return question
 
@@ -71,7 +77,7 @@ def add_review(db, user, submission_id, payload):
     if user.role != 'teacher':
         fail(403, 'FORBIDDEN', 'Only the class teacher can review feedback.')
     question_id = str(payload.question_id)
-    question_for(db, submission, question_id)
+    question_for(db, submission, question_id, require_feedback=False)
     if payload.dispute_id:
         dispute = db.get(m.FeedbackDispute, str(payload.dispute_id))
         if not dispute or dispute.submission_id != submission.id or dispute.question_id != question_id:

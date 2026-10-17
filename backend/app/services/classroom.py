@@ -1,5 +1,5 @@
 """Teacher-owned learning content and enrollment-scoped visibility."""
-from sqlalchemy import select, func, delete
+from sqlalchemy import select, func, delete, or_
 from app import models as m
 from app.errors import fail
 from app.services.quiz_grading import recommendation_key
@@ -47,7 +47,8 @@ def refresh_course_progress(db, learner_id):
     from app.services.feedback_review import effective_evaluation
     db.scalar(select(m.User).where(m.User.id==learner_id).with_for_update())
     submissions=list(db.scalars(select(m.QuizSubmission).where(m.QuizSubmission.learner_id==learner_id,
-        m.QuizSubmission.status=='graded').order_by(m.QuizSubmission.created_at.desc(),m.QuizSubmission.id)))
+        or_(m.QuizSubmission.status=='graded', select(m.TeacherReview.id).where(
+            m.TeacherReview.submission_id==m.QuizSubmission.id).exists())).order_by(m.QuizSubmission.created_at.desc(),m.QuizSubmission.id)))
     questions={q.id:q for q in db.scalars(select(m.QuizQuestion).where(m.QuizQuestion.quiz_id.in_({s.quiz_id for s in submissions})))} if submissions else {}
     reviews={}
     if submissions:
@@ -108,8 +109,21 @@ def overview(db, user, quiz_limit=20, quiz_offset=0):
     total=db.scalar(select(func.count()).select_from(m.ClassQuiz).where(*filters))
     rows=list(db.scalars(select(m.ClassQuiz).where(*filters).order_by(m.ClassQuiz.created_at.desc(),m.ClassQuiz.id).limit(quiz_limit).offset(quiz_offset)))
     submissions={s.quiz_id:s for s in db.scalars(select(m.QuizSubmission).where(m.QuizSubmission.quiz_id.in_([q.id for q in rows]),m.QuizSubmission.learner_id==user.id))} if user.role=='learner' and rows else {}
+    # Batch the visible page's audit history; never query reviews once per quiz.
+    from app.services.feedback_review import effective_evaluation
+    reviews={}
+    if submissions:
+        for review in db.scalars(select(m.TeacherReview).where(m.TeacherReview.submission_id.in_([s.id for s in submissions.values()]))):
+            reviews.setdefault(review.submission_id,[]).append(review)
+    assessments={}
+    for quiz_id,submission in submissions.items():
+        evaluation=effective_evaluation(db,submission,reviews.get(submission.id,[]))
+        assessed=len((evaluation or {}).get('questions',[]));total_responses=len(submission.responses_json)
+        assessments[quiz_id]=dict(status='complete' if assessed==total_responses else 'partial' if assessed else 'pending',
+                                 assessed_questions=assessed,total_questions=total_responses)
     quizzes=[dict(id=q.id,title=q.title,subject_id=q.subject_id,status=q.status,
-                  submission_status=submissions[q.id].status if q.id in submissions else None) for q in rows]
+                  submission_status=submissions[q.id].status if q.id in submissions else None,
+                  assessment=assessments.get(q.id)) for q in rows]
     return dict(role=user.role,subjects=subjects,quizzes=quizzes,quizzes_page=page_info(total,quiz_limit,quiz_offset))
 
 
@@ -156,8 +170,13 @@ def edit_quiz(db,user,quiz_id,payload):
 
 def submission_view(db, submission, learner_name=None, reviews=None):
     from app.services.feedback_review import effective_evaluation
+    evaluation=effective_evaluation(db,submission,reviews)
+    assessed=len((evaluation or {}).get('questions',[]))
+    total=len(submission.responses_json)
     return dict(id=submission.id,learner=learner_name or db.get(m.User,submission.learner_id).username,status=submission.status,
-                responses=submission.responses_json,evaluation=effective_evaluation(db,submission,reviews),
+                responses=submission.responses_json,evaluation=evaluation,
+                assessment=dict(status='complete' if assessed==total else 'partial' if assessed else 'pending',
+                                assessed_questions=assessed,total_questions=total),
                 original_evaluation=submission.evaluation_json,submitted_at=submission.created_at,error_code=submission.error_code)
 
 

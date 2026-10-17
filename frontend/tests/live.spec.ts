@@ -203,6 +203,8 @@ test.describe('Supabase-connected journeys',()=>{
     const teacher=await page.request.post('/api/auth/login',{data:{username:'teacher_demo',password}});
     expect(teacher.status()).toBe(200);
     await page.goto('/teacher');
+    await page.getByLabel('Find a student',{exact:true}).fill('learner_a');
+    await page.getByRole('button',{name:'Search students',exact:true}).click();
     await page.locator('article').filter({has:page.getByRole('heading',{name:'learner a',exact:true})}).getByRole('link',{name:'Review evidence →',exact:true}).click();
     await expect(page.getByRole('heading',{level:1})).toContainText('learning story');
     await expect(page.getByText('Adaptation',{exact:true}).first()).toBeVisible();
