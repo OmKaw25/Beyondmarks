@@ -1,5 +1,7 @@
 from uuid import UUID
+from typing import Literal
 from fastapi import APIRouter, Depends, Query
+from pydantic import Field
 from sqlalchemy import select, func, literal, union_all
 from sqlalchemy.orm import Session
 from app import models as m
@@ -8,8 +10,21 @@ from app.errors import fail
 from app.security.dependencies import require_teacher
 from app.services.journey_service import rows, record
 from app.services.classroom import page_info
+from app.services.teacher_invites import rotate_code
+from app.schemas import RequestModel
 
 router = APIRouter(prefix='/api/teacher', tags=['teacher'])
+
+
+class RotateInvitation(RequestModel):
+    kind: Literal['student', 'teacher']
+    current_code: str = Field(min_length=1, max_length=80, pattern=r'^[A-Za-z0-9_-]+$')
+
+
+@router.post('/invitation/rotate')
+def replace_invitation(payload: RotateInvitation, teacher: m.User = Depends(require_teacher), db: Session = Depends(get_db)):
+    code = rotate_code(db, teacher.id, payload.kind, payload.current_code)
+    return {'data': {'code': code.code, 'teacher_code': code.code, 'student_code': code.student_code, 'teacher_id': teacher.id}}
 
 
 @router.get('/invitation')

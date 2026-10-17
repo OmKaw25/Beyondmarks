@@ -41,6 +41,8 @@ SCREENS=[
   'Teachers can search their own students by username, hide sample accounts and navigate bounded roster pages. Search does not expose students from another class. Enrollment guidance points directly to the reusable class code.',(260,210,1405,1120)),
  ('Classroom extension','Create learning beyond the initial curriculum','18-class-quiz-1440-light.png',
   'Teachers can add subjects and lessons, then publish quizzes with answer keys and reasoning guidance. Students see only published quizzes in their assigned class and submit answers with explanations.',(260,350,1405,1250)),
+ ('Quiz recovery','Keep unfinished reasoning after a refresh','25-quiz-draft-1440-light.png',
+  'This real application capture follows a reload of an unfinished quiz. The answer and explanation are restored in the same tab, scoped to this learner and these questions. The draft is not submitted evidence and is cleared when submission succeeds or the learner signs out.',(260,300,1405,750)),
  ('Human review of AI','Correct feedback without erasing its origin','23-teacher-feedback-review-1440-light.png',
   'This actual teacher review awards partial reasoning credit while preserving an incorrect answer. A student concern is resolved, the teacher’s reason stays in the audit trail, and the original AI feedback remains available.',(260,1760,1405,2480)),
  ('Evidence-informed next steps','Recommend a course to revisit','19-course-recommendations-1440-light.png',
@@ -103,7 +105,7 @@ for number,(kicker,title,filename,caption,crop) in enumerate(SCREENS,2):
  c.showPage()
 
 base(len(SCREENS)+2,'Implementation and evidence','What this demonstration establishes')
-sections=[('Implemented','Teacher assessment during AI outages, tab-scoped draft recovery, searchable student rosters; authored diagnosis, distinct probes, learner perspective and agency; interactive support with fresh practice; real 7/30-day scheduling and due-time enforcement; teacher-created lessons/quizzes; audited AI feedback corrections; schema-isolated pilot provisioning.'),
+sections=[('Implemented','Teacher assessment during AI outages; learner-specific quiz and journey draft recovery; replaceable reusable class codes; searchable student rosters; authored diagnosis and distinct probes; learner perspective and agency; fresh practice; real 7/30-day scheduling; teacher-created lessons/quizzes; audited AI corrections; schema-isolated pilot provisioning.'),
  ('Evidence boundary','All shown accounts are demonstrations or automation fixtures. The scheduled dates show actual persisted future appointments. There are no fabricated elapsed-time outcomes and no completed longitudinal classroom pilot.'),
  ('Next validation','Educator review of content and rules, consented classroom participation, actual delayed observations and measured false interpretations. Template difficulty, learning efficacy and production load remain unvalidated.'),
  ('Review artifacts','Repository README: setup, upgrade/backfill instructions, risk limits and riddle mapping. Companion video: beyond-marks-demo.mp4. Public hosting has not been verified; the supported review path is local setup and downloadable artifacts.')]

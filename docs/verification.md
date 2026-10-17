@@ -1,3 +1,20 @@
+# Quiz recovery and invitation controls - 17 October 2026
+
+This section supersedes the historical runs below.
+
+- **Backend:** all 89 tests passed in 581.42 seconds against isolated PostgreSQL schemas. Three existing dependency deprecation warnings remain. The five new invitation tests include simultaneous replacements and signup waiting behind a committed rotation.
+- **Browser:** all 25 scenarios passed in one 1.2-minute run. The real frontend/API/Supabase path covers a fresh teacher replacing a student code through the UI, old-code rejection, repeated use of the new code, existing login and existing enrollment. The shared demo teacher's codes were not rotated.
+- **Recovery:** real API users/quizzes exercise refresh, 3,000-character reasoning, account/quiz/question isolation, expiry, bounded storage and sign-out. Explicit transport/presentation fixtures exercise request failures, saved-pending responses, blocked storage, teacher retry pagination, invitation conflicts and slow/failed page navigation; these fixtures are not claimed as database persistence evidence.
+- **Frontend:** final TypeScript, ESLint and isolated production build passed for all 13 route patterns. Browser tests also verify the corrected page loading behavior.
+- **Review:** independent read-only review found the teacher retry pagination defect, now resolved. A separate regression reproduced stale records during page loading. The final blocked-storage recovery regression failed before the page-local memory fallback and passed afterward. No outstanding P1/P2 findings were reported.
+- **Data:** no migration, deletion or enrollment reset was needed. Forty-four verified new automation accounts and their activity were classified as demonstrations using exact test naming patterns and known test passwords. No live invitation codes were captured in submission screenshots.
+- **Artifacts:** refreshed 18-page Frontend Pack includes an actual quiz form after reload. Desktop/mobile light/dark screenshots are retained; the new PDF page and evidence-boundary page were visually inspected. The existing 109.05-second video still demonstrates the core learning workflow, not every subsequent reliability feature.
+- **Limits:** quiz drafts are local to the current tab, with separate 20-entry/24-hour limits. When browser storage is unavailable, only mounted-page retry recovery works; browser refresh cannot restore that memory. Code replacement controls future signup and leaves previously accepted accounts intact.
+
+Public application hosting and organizer acceptance remain unverified. Local setup and published review artifacts remain the handoff.
+
+## Previous verification records
+
 # Classroom reliability verification - 17 October 2026
 
 This section supersedes the historical runs below.

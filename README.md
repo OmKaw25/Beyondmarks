@@ -4,7 +4,7 @@ Beyond Marks helps learners and teachers understand the reasoning behind an answ
 
 **Intended users:** students learning introductory programming and teachers reviewing a class's reasoning. Teachers may add other subjects and written-answer quizzes; the full authored investigation and practice-variant flow currently covers variables, conditionals and loops.
 
-**Published release:** [video, Frontend Pack and submission ZIP](https://github.com/OmKaw25/Beyondmarks/releases/tag/v1.1.0-hackathon).
+**Published release:** [video, Frontend Pack and submission ZIP](https://github.com/OmKaw25/Beyondmarks/releases/tag/v1.2.0-hackathon).
 
 **Submission:** [captioned Frontend Pack (PDF)](docs/submission/frontend-pack.pdf) | [HTML gallery](docs/submission/frontend-pack.html) | [project video](docs/submission/beyond-marks-demo.mp4) | [demo script](docs/demo-script.md). Public hosting has not been verified; use the local setup below.
 
@@ -36,6 +36,8 @@ Browser -> Next.js /api proxy -> FastAPI -> PostgreSQL / Supabase
 - **Provenance:** authored content, synthetic demonstration activity and pilot provisioning are separate. `APP_DATABASE_SCHEMA` isolates a named PostgreSQL schema. Accounts default to `data_origin=unverified`; demo and pilot provisioning set explicit origins. An unmarked account is not evidence of a real participant.
 
 Unsubmitted investigation, diagnosis, follow-up, support and verification responses can recover after refresh or a failed request in the same browser tab. Drafts are keyed to the attempt and task, limited to 20 entries and 24 hours, and cleared after successful submission or sign-out. They are not submitted evidence or a server backup; unavailable browser storage does not block learning.
+
+Class-quiz answers and reasoning also recover in the same tab, with a separate limit of 20 drafts and 24 hours. Quiz drafts are keyed by the authenticated learner, quiz and question IDs, preserve the 3,000-character field limit, and are cleared on submission or sign-out. They never store teacher answer keys. If browser storage is unavailable, refresh recovery is unavailable; current-page retry recovery still preserves the form in memory.
 
 No learner-provided code is executed. Programming practice uses authored, validated templates. Correct-answer keys are withheld from unanswered learner tasks. Draft quiz edits are allowed; published questions and submitted answers cannot be silently replaced.
 
@@ -118,6 +120,8 @@ Open **http://127.0.0.1:3000**. API documentation: **http://127.0.0.1:8000/docs*
 ## Accounts and a complete demonstration
 
 In an explicitly seeded demo, sign in as `teacher_demo` using the local `DEMO_PASSWORD`. **Show class codes** reveals separate student enrollment and teacher referral codes. Student enrollment creates an assignment to that teacher; a referred teacher receives their own class and codes. Codes are not needed at login. `learner_a`, `learner_b` and `learner_c` are synthetic seed accounts.
+
+Teachers can replace either code from **Your class codes** after an inline confirmation. The old code stops accepting future signups; the other code, existing accounts and existing class assignments remain unchanged. The replacement is still reusable. Stale tabs cannot silently replace a code that has already changed; reload the current codes first.
 
 1. Investigate a flawed explanation, then add confidence/context and written reasoning.
 2. Inspect competing interpretations and evidence; disagree, pause or request help if appropriate.

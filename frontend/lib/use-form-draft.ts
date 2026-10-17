@@ -2,6 +2,7 @@
 
 import {useCallback,useEffect,useRef,type FormEvent} from 'react';
 import type {Journey} from './types';
+import {QUIZ_DRAFT_PREFIX} from './use-quiz-draft';
 
 const PREFIX='bm-draft:';
 const MAX_DRAFTS=20;
@@ -17,7 +18,7 @@ export function journeyDraftKey(j:Journey) {
 
 export function clearFormDraft(key:string) {try{sessionStorage.removeItem(key);}catch{}}
 export function clearAllFormDrafts() {
-  try {for(const key of Object.keys(sessionStorage))if(key.startsWith(PREFIX))sessionStorage.removeItem(key);}catch{}
+  try {for(const key of Object.keys(sessionStorage))if(key.startsWith(PREFIX)||key.startsWith(QUIZ_DRAFT_PREFIX))sessionStorage.removeItem(key);}catch{}
 }
 
 function readDraft(key:string):Draft|null {

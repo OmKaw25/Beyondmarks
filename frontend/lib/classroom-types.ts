@@ -6,4 +6,4 @@ export type Classroom={role:'teacher'|'learner';subjects:Subject[];quizzes:{id:s
 export type Question={id:string;course_id:string;topic:string;prompt:string;expected_answer?:string;rubric?:string};
 export type Feedback={question_id:string;answer_score:number;reasoning_score:number;feedback:string;misconception:string;needs_review?:boolean;reviewed?:boolean};
 export type Submission={id:string;learner:string;status:string;submitted_at:string;error_code:string|null;responses:{question_id:string;answer:string;reasoning:string}[];evaluation:{questions:Feedback[];source:string;model?:string}|null;original_evaluation?:{questions:Feedback[];source:string;model?:string}|null;assessment?:Assessment};
-export type Quiz={id:string;title:string;subject:string;subject_id:string;status:string;role:'teacher'|'learner';questions:Question[];submissions:Submission[];submissions_page?:PageInfo};
+export type Quiz={viewer_id?:string;id:string;title:string;subject:string;subject_id:string;status:string;role:'teacher'|'learner';questions:Question[];submissions:Submission[];submissions_page?:PageInfo};

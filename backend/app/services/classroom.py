@@ -198,6 +198,6 @@ def quiz_view(db,user,quiz,submission_limit=20,submission_offset=0):
     if rows:
         for review in db.scalars(select(m.TeacherReview).where(m.TeacherReview.submission_id.in_([s.id for s in rows]))):
             reviews.setdefault(review.submission_id,[]).append(review)
-    return dict(id=quiz.id,title=quiz.title,status=quiz.status,role=user.role,subject_id=quiz.subject_id,subject=db.get(m.ClassSubject,quiz.subject_id).title,
+    return dict(id=quiz.id,title=quiz.title,status=quiz.status,role=user.role,viewer_id=user.id,subject_id=quiz.subject_id,subject=db.get(m.ClassSubject,quiz.subject_id).title,
                 questions=questions,submissions=[submission_view(db,s,learners[s.learner_id],reviews.get(s.id,[])) for s in rows],
                 submissions_page=page_info(total,submission_limit,submission_offset))

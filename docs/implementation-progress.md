@@ -1,6 +1,6 @@
 # Current release status
 
-The Supabase-connected application now includes direct teacher assessment during AI outages, partial feedback progress, tab-scoped learner draft recovery and searchable, paged teacher rosters. Core investigations, fresh retries, classrooms, AI feedback with audited review, learner agency, real delayed checks and isolated pilot provisioning remain implemented. See [release verification](verification.md) and [current README](../README.md) for test evidence and limits. The original execution log below is historical.
+The Supabase-connected application now includes direct teacher assessment during AI outages, partial feedback progress, learner-specific journey/quiz draft recovery, replaceable reusable invitation codes and searchable, paged teacher rosters. Page changes hide stale records and feedback retries preserve the teacher's results page. Core investigations, fresh retries, classrooms, AI feedback with audited review, learner agency, real delayed checks and isolated pilot provisioning remain implemented. See [release verification](verification.md) and [current README](../README.md) for test evidence and limits. The original execution log below is historical.
 
 # Execution ledger — workflow.md
 

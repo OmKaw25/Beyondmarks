@@ -144,6 +144,18 @@
     ]
   },
   {
+    "section": "Quiz recovery",
+    "title": "Keep unfinished reasoning after a refresh",
+    "screenshot": "docs/screenshots/25-quiz-draft-1440-light.png",
+    "caption": "This real application capture follows a reload of an unfinished quiz. The answer and explanation are restored in the same tab, scoped to this learner and these questions. The draft is not submitted evidence and is cleared when submission succeeds or the learner signs out.",
+    "crop": [
+      260,
+      300,
+      1405,
+      750
+    ]
+  },
+  {
     "section": "Human review of AI",
     "title": "Correct feedback without erasing its origin",
     "screenshot": "docs/screenshots/23-teacher-feedback-review-1440-light.png",

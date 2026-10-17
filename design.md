@@ -127,3 +127,6 @@ Review landing, signup/login, the complete learner path, and teacher evidence at
 - Reuse the existing card, form, button, grid, spacing and theme tokens for roster search and pagination; no new visual tokens are introduced.
 - Show feedback readiness separately from AI processing status. Pending, partial and complete teacher assessments have distinct labels; unassessed questions do not display invented scores.
 - Journey forms restore only the draft belonging to the current attempt, stage and task. A fresh retry starts blank. Draft recovery must not imply server submission.
+- Quiz forms use the existing labelled answer/reasoning fields. Recovery belongs to the authenticated learner and exact quiz questions; do not display draft content as submitted feedback.
+- Class-code replacement stays inside the existing hidden code panel. Use the current notice and button styles for explicit confirmation, cancellation, progress, conflict recovery and success. Explain that existing accounts remain enrolled and only the selected code changes.
+- While loading a different page, show the loading state rather than the previous page's records under the new page number.

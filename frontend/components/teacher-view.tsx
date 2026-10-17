@@ -4,6 +4,7 @@ import {useState} from 'react';
 import {useResource} from '@/lib/use-resource';
 import type {Learner,Timeline,EvidenceEvent,Assessment,Hypothesis} from '@/lib/types';
 import {AppShell} from './site-shell';
+import {TeacherCodePanel} from './teacher-codes';
 import {Empty,ErrorPanel,Loading,PageHeading,SyntheticBadge,readable,HypothesisCards} from './primitives';
 import type {DelayedCheck} from '@/lib/retention-types';
 import type {PageInfo} from '@/lib/classroom-types';
@@ -16,23 +17,6 @@ function TeacherRetention({learnerId}:{learnerId:string}){
     {c.completed_at&&<p>Completed {new Date(c.completed_at).toLocaleDateString('en-IN',{timeZone:'Asia/Kolkata'})}</p>}
     {c.completed_at&&c.response&&<details><summary>Submitted answer and reasoning</summary><p><strong>Answer</strong></p><pre className="code-block">{c.response.answer}</pre><p><strong>Written explanation</strong></p><p className="lesson-content">{c.response.explanation}</p><p><strong>Selected reasoning rule:</strong> {readable(c.response.reasoning_tag)}</p>{c.result&&<><p>Answer {c.result.correct?'correct':'needs another look'}; Reasoning choice {c.result.reasoning_supported?'supported':'needs another look'}</p><p className="small muted">{c.result.note}</p></>}</details>}
   </article>)}</div>:<p className="muted">A completed investigation schedules checks after 7 and 30 real days. No delayed result is inferred before the learner takes a check.</p>}</section>;
-}
-
-function TeacherCodePanel(){
-  const resource=useResource<{teacher_code:string;student_code:string}>('/teacher/invitation');
-  const [visible,setVisible]=useState(false);const [copied,setCopied]=useState('');const [copyError,setCopyError]=useState(false);
-  async function copy(kind:'teacher_code'|'student_code'){try{await navigator.clipboard.writeText(resource.data![kind]);setCopied(kind);setCopyError(false);}catch{setCopyError(true);}}
-  return <section className="card section-space" aria-label="Class invitation codes">
-    <h2>Your class codes</h2><p>One code invites teachers. The other enrolls students in your class. Both can be reused.</p>
-    {resource.error?<ErrorPanel error={resource.error} retry={resource.reload}/>:resource.loading?<Loading/>:resource.data&&<>
-      <button className="button secondary" onClick={()=>setVisible(!visible)}>{visible?'Hide class codes':'Show class codes'}</button>
-      {visible&&<div className="two-grid section-space">{(['student_code','teacher_code'] as const).map(kind=><div key={kind}>
-        <h3>{kind==='student_code'?'Student enrollment code':'Teacher referral code'}</h3>
-        <p className="small muted">{kind==='student_code'?'Students use this at signup to receive your subjects and quizzes.':'Teachers use this to create their own separate class.'}</p>
-        <p><code>{resource.data![kind]}</code></p><button className="button secondary" onClick={()=>copy(kind)}>{copied===kind?'Copied':kind==='student_code'?'Copy student code':'Copy teacher code'}</button>
-      </div>)}</div>}{copyError&&<p role="status">Select the code and copy it manually.</p>}
-    </>}
-  </section>;
 }
 
 function TeacherRoster({search,includeSamples,offset,onPage}:{search:string;includeSamples:boolean;offset:number;onPage:(offset:number)=>void}){
