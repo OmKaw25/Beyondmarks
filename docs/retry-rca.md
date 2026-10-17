@@ -1,0 +1,9 @@
+# Fresh practice after failure — 2026-10-17
+
+The Learn catalog creates multiple support IDs but reuses each topic's worked example, answer, and choices. Excluding used IDs therefore does not exclude repeated questions. Independent/reflection adaptation excludes answered task IDs, but its small authored bank eventually exhausts. Transfer failures currently advance to independent work; an incorrect Learn prediction also advances on Continue.
+
+Change the existing programming journey to generate validated template variants on demand. Keep generated content shared by topic/variant, store immutable attempt references, and exclude previously seen content. A failed Learn prediction gets another simple example; a failed transfer/independent/reflection check returns to Learn and then a fresh check of that same phase at its original difficulty. Keep authored first attempts and original submissions intact. No AI call, database reset, or schema migration is needed. Teacher-authored quizzes retain their original questions and scores.
+
+Verification must cover repeated failures beyond the old bank, refreshed/stale requests, answer correctness, changed option positions, original-difficulty verification, and preserved learner evidence. Template practice supports only the three existing programming concepts; arbitrary teacher-authored subjects need a separate authored/generation workflow.
+
+Independent review found no blocking correctness/security issue. It identified an avoidable scalability cost: adaptation loaded every verification task body before using the generator. Those legacy reads now occur only when template generation is unavailable and authored fallback is needed. Difficulty equivalence and learning outcomes still require real classroom validation; tests check the authored phase/format and answers, not pedagogical efficacy.

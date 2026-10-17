@@ -1,0 +1,36 @@
+Beyond Marks — narrated demonstration
+
+Real application screen captures with synthesized narration and visible captions. Demonstration activity; no real classroom learning outcomes are claimed.
+
+Beyond the answer
+Beyond Marks explores the reasoning behind an answer. This is a walkthrough of the real application using demonstration activity, not classroom outcome data.
+
+Investigate the reasoning
+The learner questions a flawed explanation, selects the faulty segment, and explains their thinking. Confidence and context are optional, and remain learner reports.
+
+Keep possibilities open
+Conceptual difficulty, misreading, time pressure, and unfinished work remain competing explanations. Evidence weights are not probabilities of ability. The learner can disagree.
+
+One useful next question
+A report of time pressure leads to a fresh, unhurried probe. Distinct questions test different possibilities, while acknowledging when one answer cannot distinguish them.
+
+Support with purpose
+A short explanation and worked example lead to an active prediction. Opening a lesson does not count as completing it.
+
+Apply the idea elsewhere
+The transfer challenge asks the learner to repair code in a new setting. The answer and selected reasoning are checked together.
+
+Check independently
+Independent verification removes earlier hints and asks for two results. A failed check returns to fresh support and a different verification task.
+
+Challenge the rule
+Reflection asks for a counterexample and a better rule. Learners can pause, resume, or ask their teacher to review the evidence.
+
+Return after a real delay
+Successful reflection schedules fresh checks after seven and thirty days. These checks are scheduled, not completed. Retained understanding can only be tested after the real delay.
+
+Preserve the learning story
+The teacher timeline keeps responses, interpretations, disagreement, and learner context visible. Written explanations stay available for human review alongside the structured assessment.
+
+Keep teachers in control
+Teachers can review AI feedback and resolve student disputes without erasing the original assessment. This working prototype still needs a real classroom pilot.

@@ -1,0 +1,8 @@
+export type Course={id:string;title:string;content:string;position:number;concept_id:string|null;exercise_id:string|null;score:number|null};
+export type Subject={id:string;title:string;description:string;teacher_id:string;teacher:string;courses:Course[]};
+export type PageInfo={limit:number;offset:number;total:number;has_more:boolean;next_offset:number|null};
+export type Classroom={role:'teacher'|'learner';subjects:Subject[];quizzes:{id:string;title:string;subject_id:string;status:string;submission_status:string|null}[];quizzes_page?:PageInfo};
+export type Question={id:string;course_id:string;topic:string;prompt:string;expected_answer?:string;rubric?:string};
+export type Feedback={question_id:string;answer_score:number;reasoning_score:number;feedback:string;misconception:string;needs_review?:boolean;reviewed?:boolean};
+export type Submission={id:string;learner:string;status:string;submitted_at:string;error_code:string|null;responses:{question_id:string;answer:string;reasoning:string}[];evaluation:{questions:Feedback[];source:string;model:string}|null};
+export type Quiz={id:string;title:string;subject:string;subject_id:string;status:string;role:'teacher'|'learner';questions:Question[];submissions:Submission[];submissions_page?:PageInfo};

@@ -1,0 +1,2 @@
+import type {Task,Result} from './types';
+export type DelayedCheck={id:string;baseline_attempt_id:string;concept_id:string;concept:string;interval_days:number;due_at:string;status:'scheduled'|'due'|'passed'|'failed';completed_at:string|null;adaptation_attempt_id:string|null;next_url:string|null;is_synthetic:boolean;data_origin:string;task?:Task|null;result?:Result|null;response?:{answer:string;explanation:string;reasoning_tag:string}|null};

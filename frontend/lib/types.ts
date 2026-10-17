@@ -1,0 +1,27 @@
+export type Choice = { value: string; label: string };
+export type User = { id: string; username: string; role: 'learner' | 'teacher'; is_synthetic: boolean };
+export type Hypothesis = { id: string; label: string; description: string; score: number; confidence: string; supporting_evidence: string[]; contradicting_evidence: string[] };
+export type Assessment = { hypotheses: Hypothesis[]; uncertain: boolean; limits?: string };
+export type SelfReport = { confidence: 'unsure' | 'somewhat_sure' | 'very_sure' | null; context: 'none' | 'time_pressure' | 'incomplete_work' | 'misread' | 'other' | null; context_note: string; phase: string; interpretation: string };
+export type Task = { id: string; prompt: string; code: string; explanation_prompt: string; reasoning_options: Choice[]; phase?: string; interaction?: { format?: 'repair' | 'multi-output' | 'counterexample'; difficulty?: string; instruction?: string; answer_label?: string; answer_fields?: string[]; choices?: Choice[] } };
+export type Result = { correct?: boolean; passed?: boolean; reasoning_supported?: boolean; feedback?: string; note?: string };
+export type Journey = {
+  id: string; title: string; stage: string; status: string; is_synthetic: boolean; next_url: string;
+  agency?: { paused: boolean; help_requested: boolean; reason?: string; help_reason?: string; updated_at?: string };
+  self_report?: SelfReport | null;
+  exercise: { id: string; prompt: string; code: string; expected_output: string; segments: { id: string; text: string }[]; categories: Record<string, Choice[]> } | null;
+  assessment: Assessment | null; challenge: { alternative: string; reason: string } | null;
+  selection: { rationale: string; divergence: number; burden: number; prediction_labels: { hypothesis: string; answer: string }[] } | null;
+  inconclusive: boolean;
+  followup: { id: string; prompt: string; code: string; choices: Choice[] } | null;
+  support: { id: string; title: string; explanation: string; worked_example: string; prediction_prompt: string; choices_json: Choice[] } | null;
+  support_completed: boolean;
+  task: Task | null; result: Result | null;
+  adaptation: { old: Assessment; new: Assessment; reason: string; is_synthetic: boolean } | null;
+  review_reason: string | null;
+};
+export type Home = { username: string; is_synthetic: boolean; exercises: { id: string; title: string; concept: string; score: number | null }[]; attempts: { id: string; exercise_id: string; concept: string; title: string; stage: string; status: string; is_synthetic: boolean; next_url: string; created_at: string }[] };
+export type Retention = { id: string; concept: string; outcome: string; check_date: string; is_synthetic: boolean; explanation: string; adaptation_required: boolean; adaptation_attempt_id: string | null };
+export type Learner = { id: string; username: string; is_synthetic: boolean; investigations: number };
+export type EvidenceEvent = { id: string; kind: string; created_at: string; is_synthetic: boolean; investigation: string; details: Record<string, unknown> };
+export type Timeline = { id: string; username: string; is_synthetic: boolean; events: EvidenceEvent[]; retention: Retention[] };

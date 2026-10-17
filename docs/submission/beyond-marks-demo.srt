@@ -1,0 +1,95 @@
+1
+00:00:00,000 --> 00:00:03,240
+Beyond Marks explores the reasoning behind an answer.
+
+2
+00:00:03,240 --> 00:00:09,536
+This is a walkthrough of the real application using demonstration activity, not classroom outcome data.
+
+3
+00:00:09,936 --> 00:00:16,265
+The learner questions a flawed explanation, selects the faulty segment, and explains their thinking.
+
+4
+00:00:16,265 --> 00:00:20,316
+Confidence and context are optional, and remain learner reports.
+
+5
+00:00:20,716 --> 00:00:27,525
+Conceptual difficulty, misreading, time pressure, and unfinished work remain competing explanations.
+
+6
+00:00:27,525 --> 00:00:30,930
+Evidence weights are not probabilities of ability.
+
+7
+00:00:30,930 --> 00:00:32,632
+The learner can disagree.
+
+8
+00:00:33,032 --> 00:00:36,717
+A report of time pressure leads to a fresh, unhurried probe.
+
+9
+00:00:36,717 --> 00:00:43,411
+Distinct questions test different possibilities, while acknowledging when one answer cannot distinguish them.
+
+10
+00:00:43,811 --> 00:00:47,947
+A short explanation and worked example lead to an active prediction.
+
+11
+00:00:47,947 --> 00:00:50,927
+Opening a lesson does not count as completing it.
+
+12
+00:00:51,327 --> 00:00:55,336
+The transfer challenge asks the learner to repair code in a new setting.
+
+13
+00:00:55,336 --> 00:00:58,398
+The answer and selected reasoning are checked together.
+
+14
+00:00:58,798 --> 00:01:03,192
+Independent verification removes earlier hints and asks for two results.
+
+15
+00:01:03,192 --> 00:01:07,708
+A failed check returns to fresh support and a different verification task.
+
+16
+00:01:08,108 --> 00:01:11,500
+Reflection asks for a counterexample and a better rule.
+
+17
+00:01:11,500 --> 00:01:15,940
+Learners can pause, resume, or ask their teacher to review the evidence.
+
+18
+00:01:16,340 --> 00:01:20,926
+Successful reflection schedules fresh checks after seven and thirty days.
+
+19
+00:01:20,926 --> 00:01:23,564
+These checks are scheduled, not completed.
+
+20
+00:01:23,564 --> 00:01:27,522
+Retained understanding can only be tested after the real delay.
+
+21
+00:01:27,922 --> 00:01:33,659
+The teacher timeline keeps responses, interpretations, disagreement, and learner context visible.
+
+22
+00:01:33,659 --> 00:01:38,922
+Written explanations stay available for human review alongside the structured assessment.
+
+23
+00:01:39,322 --> 00:01:45,216
+Teachers can review AI feedback and resolve student disputes without erasing the original assessment.
+
+24
+00:01:45,216 --> 00:01:48,600
+This working prototype still needs a real classroom pilot.

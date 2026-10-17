@@ -1,0 +1,30 @@
+# Beyond Marks Frontend Pack
+
+[Download the captioned PDF](submission/frontend-pack.pdf) · [Open the HTML gallery](submission/frontend-pack.html) · [Project video](submission/beyond-marks-demo.mp4)
+
+The pack contains actual screenshots from the local Next.js frontend connected to FastAPI and PostgreSQL. Shown accounts are demonstration or automated-test accounts, not classroom study participants. Full screens accompany enlarged excerpts in the PDF; the original PNGs remain unchanged.
+
+The 7/30-day screen shows real persisted future dates after a completed recording flow. It does not show completed delayed outcomes. Historical synthetic PASS/FAIL examples are separate from genuine delayed checks.
+
+| Screen | Actual capture | Caption |
+| --- | --- | --- |
+| Investigate the explanation | [03-investigation-1440-light.png](screenshots/03-investigation-1440-light.png) | The learner identifies a flawed explanation, categorizes the issue and explains their thinking. Confidence and context add their perspective; a correct answer alone is not treated as proof of understanding. |
+| Keep more than one explanation open | [04-interpretation-1440-light.png](screenshots/04-interpretation-1440-light.png) | Competing interpretations remain provisional. Evidence summaries and learner disagreement preserve what the system believed and what the learner says. These authored weights are not probabilities of ability. |
+| Ask one useful next question | [05-follow-up-1440-light.png](screenshots/05-follow-up-1440-light.png) | The selected probe asks for new evidence. Its rationale exposes competing predictions and the burden tradeoff. Different output, reading and unhurried probes test different possible explanations. |
+| Make the reasoning visible | [11-support-1440-light.png](screenshots/11-support-1440-light.png) | A worked example leads to a learner prediction and feedback. Learners read the feedback before continuing. A failed practice response leads to another example rather than an unsupported success label. |
+| Apply the idea in a changed context | [12-transfer-1440-light.png](screenshots/12-transfer-1440-light.png) | Transfer requires applying the rule to a different task. The learner supplies a repair, output and structured reasoning; failed checks return to support and fresh practice. |
+| Check what the learner can do alone | [06-independent-1440-light.png](screenshots/06-independent-1440-light.png) | Independent work removes current hints and answer reveals. The learner supplies a solution and reasoning. Filled fields are demonstration responses, not measured participant outcomes. |
+| Challenge an overgeneralized claim | [17-reflection-1440-light.png](screenshots/17-reflection-1440-light.png) | A reflection task asks the learner to test a claim and justify a counterexample. Completion requires structured evidence across the investigation, rather than advancing after an incorrect response. |
+| Return after seven and thirty days | [22-delayed-checks-1440-light.png](screenshots/22-delayed-checks-1440-light.png) | This actual recording account completed the flow on 17 October. The server scheduled checks for 24 October and 16 November 2026. These are future appointments, not completed retention outcomes. The account is demonstration activity, not a pilot participant. |
+| Keep the earlier evidence when support changes | [08-adaptation-1440-light.png](screenshots/08-adaptation-1440-light.png) | The adaptation view preserves earlier and revised interpretations and directs the learner to changed support. Historical seeded examples are synthetic demonstrations; genuine delayed failures use separately persisted observations. |
+| Review a learner’s reasoning history | [09-teacher-evidence-1440-light.png](screenshots/09-teacher-evidence-1440-light.png) | Only an assigned teacher can inspect the learner’s evidence. The timeline preserves earlier reasoning and interpretations; pagination loads bounded pages across evidence types. |
+| Create learning beyond the initial curriculum | [18-class-quiz-1440-light.png](screenshots/18-class-quiz-1440-light.png) | Teachers can add subjects and lessons, then publish quizzes with answer keys and reasoning guidance. Students see only published quizzes in their assigned class and submit answers with explanations. |
+| Correct feedback without erasing its origin | [23-teacher-feedback-review-1440-light.png](screenshots/23-teacher-feedback-review-1440-light.png) | This actual teacher review awards partial reasoning credit while preserving an incorrect answer. A student concern is resolved, the teacher’s reason stays in the audit trail, and the original AI feedback remains available. |
+| Recommend a course to revisit | [19-course-recommendations-1440-light.png](screenshots/19-course-recommendations-1440-light.png) | The classroom orders courses using the learner’s latest eligible quiz evidence. Teacher corrections refresh the stored course summary. This is an individual learning recommendation, not a ranking of students. |
+| Keep practice usable on a phone | [21-fresh-practice-390-dark.png](screenshots/21-fresh-practice-390-dark.png) | The mobile dark theme retains the same saved task, feedback and recovery path. Screenshots are captured from the actual app at 390px and 1440px; presentation does not replace accessibility or classroom usability evaluation. |
+
+Desktop captures use 1440px; representative mobile captures use 390px. Light/dark variants remain in `docs/screenshots`. Screen 22 is the newly captured real scheduling view; screen 23 records an audited teacher correction and resolved student concern.
+
+Rebuild the PDF and HTML using `.venv/Scripts/python.exe docs/submission/build_frontend_pack.py` with ReportLab and Pillow installed. The generator uses local Segoe UI fonts on Windows. Screenshot capture is performed by the browser suite and the separate recording workflow.
+
+See the [demo narration](demo-script.md), [judging notes](debate-notes.md) and [verification record](verification.md). Public hosting is not verified.

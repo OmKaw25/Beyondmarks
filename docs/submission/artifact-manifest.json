@@ -1,0 +1,27 @@
+{
+  "project": "Beyond Marks",
+  "video_duration_seconds": 109.05,
+  "frontend_pack_pages": 16,
+  "artifacts": [
+    {
+      "file": "beyond-marks-demo.mp4",
+      "bytes": 2545489,
+      "sha256": "1cd71ad717b049c722215ffff90df4a7908448ccba84d468f8dc6ee4b799df6d"
+    },
+    {
+      "file": "frontend-pack.pdf",
+      "bytes": 2306616,
+      "sha256": "39f07874107ba22122a1f6dcba6017105e4f94abc7e38174ed78b15183338310"
+    },
+    {
+      "file": "beyond-marks-demo.srt",
+      "bytes": 2629,
+      "sha256": "07ed67379c50ad8938b10998c8eeb945107cc0abbbd2b8b461edd6bbcee17637"
+    },
+    {
+      "file": "beyond-marks-demo-transcript.txt",
+      "bytes": 2226,
+      "sha256": "39b79089b8de48dfe652d042e81cce7d5cf848eea7ad49e8a24092f52b8300ad"
+    }
+  ]
+}

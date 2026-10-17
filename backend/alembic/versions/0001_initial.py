@@ -1,0 +1,19 @@
+"""Initial immutable PostgreSQL schema snapshot."""
+from pathlib import Path
+from alembic import op
+
+revision = '0001'
+down_revision = None
+branch_labels = None
+depends_on = None
+
+
+def upgrade():
+    sql = (Path(__file__).resolve().parents[3] / 'database' / '001_initial.sql').read_text(encoding='utf-8')
+    for statement in sql.split(';'):
+        if statement.strip():
+            op.execute(statement)
+
+
+def downgrade():
+    raise RuntimeError('Destructive schema rollback is disabled; use a separately approved migration.')

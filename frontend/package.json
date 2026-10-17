@@ -1,0 +1,15 @@
+{
+  "name": "beyond-marks",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {"next": "^16.4.2", "react": "^19.2.0", "react-dom": "^19.2.0"},
+  "devDependencies": {"@playwright/test": "^1.56.0", "@types/node": "^24", "@types/react": "^19", "@types/react-dom": "^19", "eslint": "^9", "eslint-config-next": "^16.4.2", "typescript": "^5.9"}
+}
